@@ -57,7 +57,7 @@ class Flat(models.Model):
     new_building = models.BooleanField('Новостройка', blank=True, null=True, default=None)
 
     liked_by = models.ManyToManyField(User,
-                                      blank=True,null=True,
+                                      blank=True,
                                       verbose_name='Кому понравилось',
                                       related_name='liked_flats')
 
@@ -75,5 +75,21 @@ class Сomplaint(models.Model):
 
     def __str__(self):
         return f'{self.flat}, {self.complain_content}'
+
+
+class Owner(models.Model):
+    owner = models.CharField('ФИО владельца', max_length=200)
+    owners_phonenumber = models.CharField('Номер владельца', max_length=20)
+    owner_pure_phone = PhoneNumberField('Нормализованный номер владельца',
+                                        blank=True, null=True,
+                                        max_length=20,
+                                        )
+    flats = models.ManyToManyField(Flat,
+                                   blank=True,
+                                   verbose_name='Квартиры в собственности',
+                                   related_name='owners')
+
+    def __str__(self):
+        return self.owner
 
     
