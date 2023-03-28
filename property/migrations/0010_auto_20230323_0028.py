@@ -6,10 +6,10 @@ from django.db import migrations
 def push_owners(apps, schema_editor):
     Owner = apps.get_model('property', 'Owner')
     Flat = apps.get_model('property', 'Flat')
-    for flat in Flat.objects.all():
+    for flat in Flat.objects.iterator():
         Owner.objects.get_or_create(owner=flat.owner, defaults={
-            'owners_phonenumber': flat.owners_phonenumber,
-            'owner_pure_phone': flat.owner_pure_phone
+            'phone': flat.owners_phonenumber,
+            'pure_phone': flat.owner_pure_phone
         })
 
 class Migration(migrations.Migration):
