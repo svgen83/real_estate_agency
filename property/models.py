@@ -86,6 +86,6 @@ class Owner(models.Model):
                                    related_name='owners')
 
     def __str__(self):
-        return self.owner
+        return self.name
 
     
